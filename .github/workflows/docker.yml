@@ -1,0 +1,28 @@
+name: docker
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: "0 0 * * 6"  # run every saturday at midnight
+
+jobs:
+  bake:
+    runs-on: ubuntu-latest
+    env:
+      LATEST: always
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup Docker
+        uses: docker/setup-buildx-action@v2
+      - name: Authenticate Docker
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Set TAG environment variable
+        run: PREFIX=TAG= .github/scripts/base_image_version.sh >> $GITHUB_ENV
+      - name: Build and push
+        uses: docker/bake-action@v2.2.0
+        with:
+          targets: release
