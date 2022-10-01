@@ -1,13 +1,13 @@
 #!/bin/sh
 set -e
 
-# Read secrets from the file specified in TS_SECRETNAME into the TS_AUTHKEY
-# environment variable. Use TS_SECRETNAME_<HOST> to set the matching
+# Read secrets from the file specified in TS_AUTHFILE into the TS_AUTHKEY
+# environment variable. Use TS_AUTHFILE_<HOST> to set the matching
 # TS_AUTHKEY<HOST>.
 # https://github.com/tailscale/caddy-tailscale#authenticating-to-the-tailcale-network
-for secret in $(env | grep "^TS_SECRETNAME"); do
-  host="$(echo $secret | sed 's/TS_SECRETNAME_\?\([^=]*\).*/\1/')"
-  secret_file="/run/secrets/${secret#*=}"
+for secret in $(env | grep "^TS_AUTHFILE"); do
+  host="$(echo $secret | sed 's/TS_AUTHFILE_\?\([^=]*\).*/\1/')"
+  file="${secret#*=}"
 
   if [ -z "$host" ]; then
     varname="TS_AUTHKEY"
@@ -15,8 +15,8 @@ for secret in $(env | grep "^TS_SECRETNAME"); do
     varname="TS_AUTHKEY_$host"
   fi
 
-  echo "Reading secret from $secret_file into $varname..."
-  export "$varname=$(cat $secret_file | head -n1)"
+  echo "Reading secret from $file into $varname..."
+  export "$varname=$(cat $file | head -n1)"
 done
 
 exec "$@"
