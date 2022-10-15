@@ -2,7 +2,10 @@ name: docker
 on:
   push:
     branches: [main]
-  schedule:
+    paths-ignore:
+      - README.md
+      - .gitignore
+  schedule: 
     - cron: "0 0 * * 6"  # run every saturday at midnight
 
 jobs:
