@@ -26,6 +26,6 @@ jobs:
       - name: Set TAG environment variable
         run: PREFIX=TAG= .github/scripts/base_image_version.sh >> $GITHUB_ENV
       - name: Build and push
-        uses: docker/bake-action@v2.3.0
+        uses: docker/bake-action@v3.0.0
         with:
           targets: release
