@@ -1,4 +1,4 @@
-FROM --platform=$BUILDPLATFORM caddy:2.6.3-builder AS build
+FROM --platform=$BUILDPLATFORM caddy:2.7.6-builder AS build
 ARG BUILDPLATFORM
 
 ARG TARGETOS
