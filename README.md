@@ -1,6 +1,6 @@
 # Caddy with Tailscale plugin
 
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/erlend/docker-caddy/docker)
+[![Docker Build](https://github.com/erlend/docker-caddy/actions/workflows/docker.yml/badge.svg)](https://github.com/erlend/docker-caddy/actions/workflows/docker.yml)
 ![Docker Image Version](https://img.shields.io/docker/v/erlend/caddy/latest)
 ![Docker Image Size](https://img.shields.io/docker/image-size/erlend/caddy/latest)
 ![Docker Pulls](https://img.shields.io/docker/pulls/erlend/caddy)
